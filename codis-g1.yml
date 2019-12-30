@@ -1,0 +1,71 @@
+---
+# Codis Version: 3.2, 3.2.11
+# 
+# FileVersion: 20191113
+
+# Dockerfile
+# 
+
+
+# ####################################
+# 环境变量
+# ####################################
+
+
+# ####################################
+# 文件映射
+# ####################################
+
+
+version: '3'
+
+services:
+  codis-g1-s1:
+    image: ${CODIS_IMG_TAG}
+    command: codis-server /codis/conf/redis.conf --logfile /codis/log/codis-g1-s1.log
+    restart: always
+    hostname: codis-g1-s1
+    container_name: codis-g1-s1
+    ports:
+      - 16379:6379
+    volumes:
+      - ./data/codis-g1-s1:/codis/data
+      - ./conf/redis.d/g1-s1.conf:/codis/conf/redis.conf
+      - ../../../log/codis:/codis/log
+    networks:
+      - codis-cluster-g1
+
+  codis-g1-s2:
+    image: ${CODIS_IMG_TAG}
+    command: codis-server /codis/conf/redis.conf --logfile /codis/log/codis-g1-s2.log
+    restart: always
+    hostname: codis-g1-s2
+    container_name: codis-g1-s2
+    ports:
+      - 16380:6379
+    volumes:
+      - ./data/codis-g1-s2:/codis/data
+      - ./conf/redis.d/g1-s2.conf:/codis/conf/redis.conf
+      - ../../../log/codis:/codis/log
+    networks:
+      - codis-cluster-g1
+
+  codis-g1-s3:
+    image: ${CODIS_IMG_TAG}
+    command: codis-server /codis/conf/redis.conf --logfile /codis/log/codis-g1-s3.log
+    restart: always
+    hostname: codis-g1-s3
+    container_name: codis-g1-s3
+    ports:
+      - 16381:6379
+    volumes:
+      - ./data/codis-g1-s3:/codis/data
+      - ./conf/redis.d/g1-s3.conf:/codis/conf/redis.conf
+      - ../../../log/codis:/codis/log
+    networks:
+      - codis-cluster-g1
+
+
+networks:
+  codis-cluster-g1:
+    driver: bridge

@@ -1,0 +1,63 @@
+---
+# Name: Codis Web 相关
+# Version: 3.2.11 
+# FileVersion: 20191113
+# Ref: 
+#   - https://
+
+# Dockerfile
+# 
+
+
+# ####################################
+# 环境变量
+# ####################################
+
+
+# ####################################
+# 文件映射
+# ####################################
+
+
+version: '3'
+
+services:
+  codis-fe:
+    image: ${CODIS_IMG_TAG}
+    command: codis-fe -l /codis/log/codis-fe.log ${COORDINATOR_OPT} --listen=0.0.0.0:${FE_PORT} --assets=/gopath/src/github.com/CodisLabs/codis/bin/assets
+    restart: always
+    hostname: codis-fe
+    container_name: codis-fe
+    extra_hosts:
+      baltic: 172.17.0.1
+    ports:
+      - ${HOST_FE_PORT}:${FE_PORT}
+    volumes:
+      - ./data/tmp/codis:/tmp/codis
+      - ./data/codis-fe:/codis/data
+      - ./conf:/codis/conf
+      - ../../../log/codis:/codis/log
+    networks:
+      - codis-cluster-web
+
+  codis-dashboard:
+    image: ${CODIS_IMG_TAG}
+    command: codis-dashboard -l /codis/log/codis-dashboard.log -c /codis/conf/dashboard.toml --host-admin ${HOST_ADDR}:${HOST_DASHBOARD_PORT}
+    restart: always
+    hostname: codis-dashboard
+    container_name: codis-dashboard
+    extra_hosts:
+      baltic: 172.17.0.1
+    ports:
+      - ${HOST_DASHBOARD_PORT}:${DASHBOARD_PORT}
+    volumes:
+      - ./data/tmp/codis:/tmp/codis
+      - ./data/codis-dashboard:/codis/data
+      - ./conf:/codis/conf
+      - ../../../log/codis:/codis/log
+    networks:
+      - codis-cluster-web
+
+networks:
+  codis-cluster-web:
+    driver: bridge

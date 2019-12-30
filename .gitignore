@@ -1,0 +1,32 @@
+# 数据目录
+
+# DATA-DIR-BEGIN
+data
+data/tmp/codis
+data/codis-fe
+data/codis-proxy1
+data/codis-dashboard
+
+data/codis-g1-s1
+data/codis-g1-s2
+data/codis-g1-s3
+
+data/codis-g2-s1
+data/codis-g2-s2
+data/codis-g2-s3
+
+data/codis-g3-s1
+data/codis-g3-s2
+data/codis-g3-s3
+
+data/codis-g4-s1
+data/codis-g4-s2
+data/codis-g4-s3
+
+../../../log/codis
+
+# DATA-DIR-END
+
+
+# 生产配置
+*.prod.yml
