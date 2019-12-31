@@ -29,7 +29,7 @@ services:
     hostname: codis-proxy1
     container_name: codis-proxy1
     extra_hosts:
-      ${CODIS_HOST_NAME}: 172.17.0.1
+      baltic: 172.17.0.1
     ports:
       - ${CODIS_PROXY_ADMIN_PORT}:${PROXY_ADMIN_PORT}
       - ${CODIS_PROXY_PORT}:${PROXY_PORT}

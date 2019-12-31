@@ -29,7 +29,7 @@ services:
     hostname: codis-fe
     container_name: codis-fe
     extra_hosts:
-      ${CODIS_HOST_NAME}: 172.17.0.1
+      baltic: 172.17.0.1
     ports:
       - ${CODIS_FE_PORT}:${FE_PORT}
     volumes:
@@ -47,7 +47,7 @@ services:
     hostname: codis-dashboard
     container_name: codis-dashboard
     extra_hosts:
-      ${CODIS_HOST_NAME}: 172.17.0.1
+      baltic: 172.17.0.1
     ports:
       - ${CODIS_DASHBOARD_PORT}:${DASHBOARD_PORT}
     volumes:
