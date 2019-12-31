@@ -24,19 +24,19 @@ version: '3'
 services:
   codis-proxy1:
     image: ${CODIS_IMG_TAG}
-    command: codis-proxy -l /codis/log/codis-proxy1.log -c /codis/conf/proxy.toml --host-admin ${HOST_ADDR}:${HOST_PROXY_ADMIN_PORT} --host-proxy ${HOST_ADDR}:${HOST_PROXY_PORT}
+    command: codis-proxy -l /codis/log/codis-proxy1.log -c /codis/conf/proxy.toml --host-admin ${CODIS_HOST_NAME}:${CODIS_PROXY_ADMIN_PORT} --host-proxy ${CODIS_HOST_NAME}:${CODIS_PROXY_PORT}
     restart: always
     hostname: codis-proxy1
     container_name: codis-proxy1
     extra_hosts:
-      baltic: 172.17.0.1
+      ${CODIS_HOST_NAME}: 172.17.0.1
     ports:
-      - ${HOST_PROXY_ADMIN_PORT}:${PROXY_ADMIN_PORT}
-      - ${HOST_PROXY_PORT}:${PROXY_PORT}
+      - ${CODIS_PROXY_ADMIN_PORT}:${PROXY_ADMIN_PORT}
+      - ${CODIS_PROXY_PORT}:${PROXY_PORT}
     volumes:
-      - ./data/codis-proxy1:/codis/data
+      - ${XDC_CODIS_DATA:-./data}/codis-proxy1:/codis/data
       - ./conf:/codis/conf
-      - ../../../log/codis:/codis/log
+      - ${XDC_CODIS_LOG:-./log}:/codis/log
     networks:
       - codis-cluster-proxy
 

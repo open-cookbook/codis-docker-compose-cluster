@@ -27,11 +27,11 @@ services:
     hostname: codis-g4-s1
     container_name: codis-g4-s1
     ports:
-      - 16388:6379
+      - ${CODIS_G4_S1_PORT:-16388}:6379
     volumes:
-      - ./data/codis-g4-s1:/codis/data
       - ./conf/redis.d/g4-s1.conf:/codis/conf/redis.conf
-      - ../../../log/codis:/codis/log
+      - ${XDC_CODIS_DATA:-./data}/codis-g4-s1:/codis/data
+      - ${XDC_CODIS_LOG:-./log}:/codis/log
     networks:
       - codis-cluster-g4
 
@@ -42,11 +42,11 @@ services:
     hostname: codis-g4-s2
     container_name: codis-g4-s2
     ports:
-      - 16389:6379
+      - ${CODIS_G4_S2_PORT:-16389}:6379
     volumes:
-      - ./data/codis-g4-s2:/codis/data
       - ./conf/redis.d/g4-s2.conf:/codis/conf/redis.conf
-      - ../../../log/codis:/codis/log
+      - ${XDC_CODIS_DATA:-./data}/codis-g4-s2:/codis/data
+      - ${XDC_CODIS_LOG:-./log}:/codis/log
     networks:
       - codis-cluster-g4
 
@@ -57,11 +57,11 @@ services:
     hostname: codis-g4-s3
     container_name: codis-g4-s3
     ports:
-      - 16390:6379
+      - ${CODIS_G4_S3_PORT:-16390}:6379
     volumes:
-      - ./data/codis-g4-s3:/codis/data
       - ./conf/redis.d/g4-s3.conf:/codis/conf/redis.conf
-      - ../../../log/codis:/codis/log
+      - ${XDC_CODIS_DATA:-./data}/codis-g4-s3:/codis/data
+      - ${XDC_CODIS_LOG:-./log}:/codis/log
     networks:
       - codis-cluster-g4
 
